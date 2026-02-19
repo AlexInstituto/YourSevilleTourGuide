@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# expo
+.expo/
+dist/
+web-build/
+
+# metro
+.metro-cache/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# macOS
+.DS_Store
+
+# env
+.env
+.env.local
