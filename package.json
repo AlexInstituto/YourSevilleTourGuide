@@ -10,9 +10,9 @@
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
     "@react-native-async-storage/async-storage": "2.2.0",
-    "@react-navigation/bottom-tabs": "*",
-    "@react-navigation/native": "*",
-    "@react-navigation/native-stack": "*",
+    "@react-navigation/bottom-tabs": "^6.6.1",
+    "@react-navigation/native": "^6.1.18",
+    "@react-navigation/native-stack": "^6.9.26",
     "@supabase/supabase-js": "*",
     "base-64": "*",
     "expo": "~54.0.33",
@@ -34,8 +34,12 @@
   },
   "private": true,
   "devDependencies": {
+    "@types/base-64": "^1.0.2",
     "@types/react": "~19.1.10",
     "@types/react-native": "^0.72.8",
     "typescript": "~5.9.2"
+  },
+  "overrides": {
+    "minimatch": "^10.2.1"
   }
 }

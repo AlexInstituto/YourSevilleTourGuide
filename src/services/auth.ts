@@ -1,27 +1,48 @@
-import { supabase } from './supabase';
-import { RealtimeSubscription } from '@supabase/supabase-js';
+import { supabase } from "./supabase";
+import { AuthSession, Session, SupabaseClient } from "@supabase/supabase-js";
 
-export async function getCurrentSession(): Promise<any> {
-  const { data, error } = await supabase.auth.getSession();
-  if (error) throw error;
-  return data.session;
+/**
+ * Obtiene la sesión actual del usuario
+ */
+export async function getCurrentSession(): Promise<Session | null> {
+	const { data, error } = await supabase.auth.getSession();
+	if (error) throw error;
+	return data.session;
 }
 
-export function onAuthStateChange(callback: (session: any) => void): RealtimeSubscription {
-  const { data } = supabase.auth.onAuthStateChange((_event, session) => {
-    callback(session);
-  });
+/**
+ * Escucha cambios en la autenticación
+ * Devuelve un objeto de suscripción que puedes usar para cancelar la escucha
+ */
+export function onAuthStateChange(callback: (session: Session | null) => void) {
+	const { data: subscription } = supabase.auth.onAuthStateChange(
+		(_event, session) => {
+			callback(session);
+		},
+	);
 
-  return data.subscription;
+	return subscription;
 }
 
-export async function signIn(email: string, password: string): Promise<any> {
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) throw error;
-  return data;
+/**
+ * Inicia sesión con email y contraseña
+ */
+export async function signIn(
+	email: string,
+	password: string,
+): Promise<{ session: Session | null; user: any }> {
+	const { data, error } = await supabase.auth.signInWithPassword({
+		email,
+		password,
+	});
+	if (error) throw error;
+	return data;
 }
 
+/**
+ * Cierra sesión
+ */
 export async function signOut(): Promise<void> {
-  const { error } = await supabase.auth.signOut();
-  if (error) throw error;
+	const { error } = await supabase.auth.signOut();
+	if (error) throw error;
 }
