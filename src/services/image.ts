@@ -3,7 +3,7 @@ import { encode as btoa } from "base-64";
 
 const GITHUB_OWNER = "AlexInstituto";
 const GITHUB_REPO = "images-repo";
-const GITHUB_TOKEN = "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";
+const GITHUB_TOKEN = process.env.MY_GITHUB_TOKEN;
 const BRANCH = "main";
 
 export async function pickImage(): Promise<string | null> {
